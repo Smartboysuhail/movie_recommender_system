@@ -1,0 +1,6 @@
+myenv
+.ipynb_checkpoints/
+.idea/
+*.sqlite
+*.db
+*.log
