@@ -6,6 +6,15 @@ import os
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
 file_path = os.path.join(current_dir, 'similarity.pkl')
+try:
+    with open(file_path, 'rb') as file:
+        similarity = pickle.load(file)
+except FileNotFoundError:
+    st.error(f"File not found: {file_path}")
+    st.stop()  # Stop the execution if the file is not found
+except Exception as e:
+    st.error(f"An error occurred while loading similarity.pkl: {e}")
+    st.stop()
 def fetch_poster(movie_id):
     url = "https://api.themoviedb.org/3/movie/{}?api_key=8265bd1679663a7ea12ac168da84d2e8&language=en-US".format(
         movie_id)
@@ -29,13 +38,6 @@ def recommend(movie):
 
 movies_dict=pickle.load(open('movies_dict.pkl', 'rb'))
 movies = pd.DataFrame(movies_dict)
-
-# Load the file
-try:
-    with open(file_path, 'rb') as file:
-        similarity = pickle.load(file)
-except FileNotFoundError:
-    print(f"File not found: {file_path}")
 
 st.title('Movie Recommender System')
 
