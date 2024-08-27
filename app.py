@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import pickle
 import requests
+import os
 
 
 def fetch_poster(movie_id):
@@ -28,7 +29,10 @@ def recommend(movie):
 movies_dict=pickle.load(open('movies_dict.pkl', 'rb'))
 movies = pd.DataFrame(movies_dict)
 
-similarity=pickle.load(open('similarity.pkl', 'rb'))
+current_dir = os.path.dirname(__file__)
+file_path = os.path.join(current_dir, 'similarity.pkl')
+similarity = pickle.load(open(file_path, 'rb'))
+
 
 st.title('Movie Recommender System')
 
