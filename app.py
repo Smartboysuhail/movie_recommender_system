@@ -29,9 +29,26 @@ def recommend(movie):
 movies_dict=pickle.load(open('movies_dict.pkl', 'rb'))
 movies = pd.DataFrame(movies_dict)
 
-current_dir = os.path.dirname(__file__)
+current_dir = os.path.dirname(os.path.abspath(__file__))
+
+# Build the full path to the similarity.pkl file
 file_path = os.path.join(current_dir, 'similarity.pkl')
-similarity = pickle.load(open(file_path, 'rb'))
+
+# Load the file
+try:
+    with open(file_path, 'rb') as file:
+        similarity = pickle.load(file)
+except FileNotFoundError:
+    print(f"File not found: {file_path}")
+
+# Print current working directory
+print(f"Current working directory: {os.getcwd()}")
+
+# List files in the directory
+print(f"Files in directory: {os.listdir(current_dir)}")
+
+# Check if the file exists
+print(f"File exists: {os.path.isfile(file_path)}")
 
 
 st.title('Movie Recommender System')
