@@ -3,18 +3,26 @@ import pandas as pd
 import pickle
 import requests
 import os
+import urllib.request
 
-current_dir = os.path.dirname(os.path.abspath(__file__))
-file_path = os.path.join(current_dir, 'similarity.pkl')
-try:
-    with open(file_path, 'rb') as file:
-        similarity = pickle.load(file)
-except FileNotFoundError:
-    st.error(f"File not found: {file_path}")
-    st.stop()  # Stop the execution if the file is not found
-except Exception as e:
-    st.error(f"An error occurred while loading similarity.pkl: {e}")
-    st.stop()
+# Google Drive File ID
+FILE_ID= "1VS1M5ZS8HMM_-VQKSPjp0hkmRtGhgN_A"
+# Google Drive direct download link
+FILE_URL = f"https://drive.google.com/uc?export=download&id={FILE_ID}"
+
+
+# Path to save the file
+SAVE_PATH = "similarity.pkl"
+
+# Download if not exists
+if not os.path.exists(SAVE_PATH):
+    print("Downloading similarity.pkl...")
+    urllib.request.urlretrieve(FILE_URL, SAVE_PATH)
+    print("Download complete!")
+
+with open(SAVE_PATH, 'rb') as file:
+    similarity = pickle.load(file)
+
 def fetch_poster(movie_id):
     url = "https://api.themoviedb.org/3/movie/{}?api_key=8265bd1679663a7ea12ac168da84d2e8&language=en-US".format(
         movie_id)
