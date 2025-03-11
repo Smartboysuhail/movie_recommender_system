@@ -4,6 +4,7 @@ import pickle
 import requests
 import os
 import urllib.request
+import gdown
 
 # Google Drive File ID
 FILE_ID= "1HX8lhDLWE-UcrgnSQP3wkAkzi2F8juVU"
@@ -14,11 +15,10 @@ FILE_URL = f"https://drive.google.com/uc?export=download&id={FILE_ID}"
 # Path to save the file
 SAVE_PATH = "similarity.pkl"
 
-# Download if not exists
-if not os.path.exists(SAVE_PATH):
-    print("Downloading similarity.pkl...")
-    urllib.request.urlretrieve(FILE_URL, SAVE_PATH)
-    print("Download complete!")
+# Use gdown to download the file properly
+gdown.download(FILE_URL, SAVE_PATH, quiet=False, verify=False)
+
+print("Download complete!")
 
 with open(SAVE_PATH, 'rb') as file:
     similarity = pickle.load(file)
