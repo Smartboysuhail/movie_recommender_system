@@ -6,7 +6,7 @@ import os
 import urllib.request
 
 # Google Drive File ID
-FILE_ID= "1VS1M5ZS8HMM_-VQKSPjp0hkmRtGhgN_A"
+FILE_ID= "1HX8lhDLWE-UcrgnSQP3wkAkzi2F8juVU"
 # Google Drive direct download link
 FILE_URL = f"https://drive.google.com/uc?export=download&id={FILE_ID}"
 
